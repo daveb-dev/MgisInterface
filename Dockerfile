@@ -14,10 +14,11 @@ RUN apt purge -y python2.7-minimal
 RUN pip3 install pygraphviz &&\
 	pip3 install pygmsh==6.0.4 meshio==4.0.1
 
+ENV BOOST_MINOR  71
 
-RUN wget --no-verbose https://dl.bintray.com/boostorg/release/1.65.1/source/boost_1_65_1.tar.gz && \
-    tar xzf boost_1_65_1.tar.gz && \
-    cd boost_1_65_1 && \
+RUN wget --no-verbose https://dl.bintray.com/boostorg/release/1.${BOOST_MINOR}.0/source/boost_1_${BOOST_MINOR}_0.tar.gz && \
+    tar xzf boost_1_${BOOST_MINOR}_0.tar.gz && \
+    cd boost_1_${BOOST_MINOR}_0 && \
     ln -s /usr/local/include/python3.6m /usr/local/include/python3.6 && \
     ./bootstrap.sh --with-python=$(which python3) && \
     ./b2 install 
