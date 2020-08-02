@@ -10,7 +10,9 @@ RUN apt-get -y update && \
     apt-get install -y libqt5svg5-dev qtwebengine5-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-RUN apt purge -y python2.7-minimal   
+RUN apt purge -y python2.7-minimal  libboost-dev 
+RUN apt autoremove 
+
 RUN pip3 install pygraphviz &&\
 	pip3 install pygmsh==6.0.4 meshio==4.0.1
 
