@@ -1,37 +1,5 @@
-FROM quay.io/fenicsproject/stable:2019.1.0.r3
-
+FROM  dbaroliaices/mgisfenics:base
 USER root
-
-RUN pip3 install progressbar2 xmltodict pandas seaborn
-
-WORKDIR /tmp
-RUN apt-get -y update && \ 
-    apt-get install -y libgl1-mesa-glx libxcursor1 libxft2 libxinerama1 libglu1-mesa imagemagick python3-h5py python3-lxml gmsh graphviz graphviz-dev && \
-    apt-get install -y libqt5svg5-dev qtwebengine5-dev && \
-    apt-get clean && \
-    apt-get remove --purge -y python2.7-minimal  libboost-dev && \
-    apt-get autoremove &&  \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-RUN pip3 install pygraphviz &&\
-	pip3 install pygmsh==6.0.4 meshio==4.0.1
-
-RUN  wget --no-verbose https://github.com/Kitware/CMake/releases/download/v3.18.1/cmake-3.18.1.tar.gz && \
-     tar xzf cmake-3.18.1.tar.gz  &&\
-     cd cmake-3.18.1 && \
-     ./bootstrap && \
-     make && \
-     make install
-
-ENV BOOST_MINOR  71
-
-RUN wget --no-verbose https://dl.bintray.com/boostorg/release/1.${BOOST_MINOR}.0/source/boost_1_${BOOST_MINOR}_0.tar.gz && \
-    tar xzf boost_1_${BOOST_MINOR}_0.tar.gz && \
-    cd boost_1_${BOOST_MINOR}_0 && \
-    ln -s /usr/local/include/python3.6m /usr/local/include/python3.6 && \
-    ./bootstrap.sh --with-python=$(which python3) && \
-    ./b2 install 
-
 WORKDIR /home/fenics/local
 
 RUN mkdir -p /home/fenics/local/codes/tfel/master/src && \
@@ -71,4 +39,4 @@ RUN cd $MGISSRC && \
 ENV  PATH ${MGISHOME}/bin:$PATH
 ENV  LD_LIBRARY_PATH ${MGISHOME}/lib:$LD_LIBRARY_PATH
 ENV  PYTHONPATH=${MGISHOME}/lib/python3.6/site-packages:$PYTHONPATH    
-WORKDIR /home/fenics
+
