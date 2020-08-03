@@ -9,9 +9,9 @@ RUN apt-get -y update && \
     apt-get install -y libgl1-mesa-glx libxcursor1 libxft2 libxinerama1 libglu1-mesa imagemagick python3-h5py python3-lxml gmsh graphviz graphviz-dev && \
     apt-get install -y libqt5svg5-dev qtwebengine5-dev && \
     apt-get clean && \
+    apt-get purge -y python2.7-minimal  libboost-dev && \
+    apt-get autoremove &&  \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-RUN apt purge -y python2.7-minimal  libboost-dev 
-RUN apt autoremove 
 
 RUN pip3 install pygraphviz &&\
 	pip3 install pygmsh==6.0.4 meshio==4.0.1
