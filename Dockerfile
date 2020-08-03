@@ -16,6 +16,13 @@ RUN apt autoremove
 RUN pip3 install pygraphviz &&\
 	pip3 install pygmsh==6.0.4 meshio==4.0.1
 
+RUN  wget --no-verbose https://github.com/Kitware/CMake/releases/download/v3.18.1/cmake-3.18.1.tar.gz && \
+     tar xzf cmake-3.18.1.tar.gz  &&\
+     cd cmake-3.18.1 && \
+     ./bootstrap && \
+     make && \
+     make install
+
 ENV BOOST_MINOR  71
 
 RUN wget --no-verbose https://dl.bintray.com/boostorg/release/1.${BOOST_MINOR}.0/source/boost_1_${BOOST_MINOR}_0.tar.gz && \
@@ -42,7 +49,8 @@ ENV MGISHOME /home/fenics/local/mgis-install
 
 
 RUN cd $TFELSRC && \
-    git clone https://github.com/thelfer/tfel.git  && \
+    git clone https://github.com/yunkb/tfel.git  && \
+    git checkout -b cmakecompatibility && \
     mkdir -p build && \
     cd  build && \
     cmake ../tfel -DCMAKE_BUILD_TYPE=Release -Dlocal-castem-header=ON -Denable-aster=ON -Denable-abaqus=ON -Denable-calculix=ON -Denable-ansys=ON -Denable-europlexus=ON -Denable-python=ON -Denable-python-bindings=ON -DPython_ADDITIONAL_VERSIONS=$PYTHON_VERSION -DCMAKE_INSTALL_PREFIX=/home/fenics/local/tfel-install &&\
