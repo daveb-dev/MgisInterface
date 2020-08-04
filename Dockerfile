@@ -21,7 +21,7 @@ RUN cd $TFELSRC && \
     git clone https://github.com/thelfer/tfel.git  && \
     mkdir -p build && \
     cd  build && \
-    cmake ../tfel -DCMAKE_BUILD_TYPE=Release -Dlocal-castem-header=ON -Denable-aster=ON -Denable-abaqus=ON -Denable-calculix=ON -Denable-ansys=ON -Denable-europlexus=ON -Denable-python=ON -Denable-python-bindings=ON -DPython_ADDITIONAL_VERSIONS=$PYTHON_VERSION -DCMAKE_INSTALL_PREFIX=/home/fenics/local/tfel-install &&\
+    cmake ../tfel -DCMAKE_BUILD_TYPE=Release -Dlocal-castem-header=ON -Denable-aster=ON -Denable-abaqus=ON -Denable-calculix=ON -Denable-ansys=ON -Denable-europlexus=ON -Denable-python=ON -Denable-python-bindings=ON -DPython_ADDITIONAL_VERSIONS=$PYTHON_VERSION -Denable-numpy-support=OFF -DCMAKE_INSTALL_PREFIX=/home/fenics/local/tfel-install &&\
     make &&\ 
     make install 
 ENV  PATH ${TFELHOME}/bin:$PATH
@@ -32,7 +32,7 @@ RUN cd $MGISSRC && \
     git clone https://github.com/thelfer/MFrontGenericInterfaceSupport.git && \
     mkdir -p build && \
     cd  build && \
-    cmake ../MFrontGenericInterfaceSupport -DCMAKE_BUILD_TYPE=Release -Denable-python-bindings=ON -Denable-fortran-bindings=ON -Denable-c-bindings=ON -Denable-fenics-bindings=ON -DCMAKE_INSTALL_PREFIX=/home/fenics/local/mgis-install &&\
+    cmake ../MFrontGenericInterfaceSupport -DCMAKE_BUILD_TYPE=Release -Denable-python-bindings=ON -Denable-fortran-bindings=ON -Denable-c-bindings=ON -Denable-fenics-bindings=ON -Denable-numpy-support=OFF -DCMAKE_INSTALL_PREFIX=/home/fenics/local/mgis-install &&\
     make &&\ 
     make install 
     
